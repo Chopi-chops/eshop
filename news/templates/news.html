@@ -3,7 +3,8 @@
 <a href="/news/">Новости</a> |
 <a href="/admin">Админка</a>
 
-<h1>Товары</h1>
-{% for product in products %}
-    <div>{{ product.name }} - {{ product.price }} сом</div>
+
+<h1>Новости</h1>
+{% for new in news %}
+    <div>{{ new.id }}. {{ new.title }}</div>
 {% endfor %}
