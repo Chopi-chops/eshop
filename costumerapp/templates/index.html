@@ -1,4 +1,8 @@
-<h1>Клиент</h1>
+<a href="/">Главная</a> |
+<a href="/costumers/">Покупатели</a> |
+<a href="/admin">Админка</a>
+
+<h1>Клиенты</h1>
 {% for costumer in costumers %}
-    <div>{{ costumer.name }} - {{ costumer.age }} - {{ costumer.gender }}</div>
+    <div>{{ costumer.name }}</div>
 {% endfor %}
