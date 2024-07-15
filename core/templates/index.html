@@ -1,15 +1,8 @@
 <a href="/">Главная</a> |
 <a href="/costumers/">Покупатели</a> |
 <a href="/news/">Новости</a> |
+<a href="/users/">Пользователи</a> |
 <a href="/admin">Админка</a>
-
-{% if request.user.is_authenticated %}
-    <div>
-        <a href="/user/{{ request.user.id }}/">
-            {{ request.user }}
-        </a>
-    </div>
-{% endif %}
 
 <h1>Товары</h1>
 {% for product in products %}

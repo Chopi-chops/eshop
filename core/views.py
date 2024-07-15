@@ -39,6 +39,13 @@ def product_detail(request, id):
     }
     return render(request, 'product_detail.html', context)
 
+
+def users_list(request):
+    user_list = User.objects.all()
+    context = {"users": user_list}
+    # return HttpResponse('Hello Django!')
+    return render(request, 'user_list.html', context)
+
 def user_cabinet(request, id):
     user = User.objects.get(id=id)
     context = {"user": user}

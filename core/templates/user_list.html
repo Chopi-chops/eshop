@@ -4,7 +4,9 @@
 <a href="/users/">Пользователи</a> |
 <a href="/admin">Админка</a>
 
-<h1>Клиенты</h1>
-{% for costumer in costumers %}
-    <div>{{ costumer.name }}</div>
+<h1>Пользователи</h1>
+{% for user in users %}
+    <div>{{ user.id }}.
+        <a href="/user/{{ user.id }}/">{{ user }}</a>
+    </div>
 {% endfor %}
