@@ -1,0 +1,14 @@
+<a href="/">Главная</a> |
+<a href="/costumers/">Покупатели</a> |
+<a href="/news/">Новости</a> |
+<a href="/admin/">Админка</a>
+
+<h1>{{ new.title }}</h1>
+<div>{{ new.article }}</div>
+<div>Просмотры: {{ new.views }}</div>
+<div>Уникальный просмотры: {{ new.user_views.count }}</div>
+
+<h2>Пользователи, просмотревшие данную новость:</h2>
+{% for user in new.user_views.all %}
+    <div>{{ user.username }}</div>
+{% endfor %}

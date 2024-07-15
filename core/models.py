@@ -25,6 +25,7 @@ class Product(models.Model):
         to=Costumer,
         blank=True
     )
+    views_qty = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name

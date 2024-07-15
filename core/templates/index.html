@@ -3,7 +3,18 @@
 <a href="/news/">Новости</a> |
 <a href="/admin">Админка</a>
 
+{% if request.user.is_authenticated %}
+    <div>
+        <a href="/user/{{ request.user.id }}/">
+            {{ request.user }}
+        </a>
+    </div>
+{% endif %}
+
 <h1>Товары</h1>
 {% for product in products %}
-    <div>{{ product.name }} - {{ product.price }} сом</div>
+    <div>{{ product.id }}.
+        <a href="/product/{{ product.id }}/">{{ product.name }}</a>
+         - {{ product.price }} сом
+    </div>
 {% endfor %}
