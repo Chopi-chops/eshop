@@ -1,10 +1,10 @@
-<a href="/">Главная</a> |
-<a href="/costumers/">Покупатели</a> |
-<a href="/news/">Новости</a> |
-<a href="/users/">Пользователи</a> |
-<a href="/admin">Админка</a>
+{% extends 'base.html' %}
+
+{% block content %}
 
 <h1>Клиенты</h1>
 {% for costumer in costumers %}
     <div>{{ costumer.name }}</div>
 {% endfor %}
+
+{% endblock %}

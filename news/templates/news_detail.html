@@ -1,8 +1,6 @@
-<a href="/">Главная</a> |
-<a href="/costumers/">Покупатели</a> |
-<a href="/news/">Новости</a> |
-<a href="/users/">Пользователи</a> |
-<a href="/admin/">Админка</a>
+{% extends 'base.html' %}
+
+{% block content %}
 
 <h1>{{ new.title }}</h1>
 <div>{{ new.article }}</div>
@@ -13,3 +11,5 @@
 {% for user in new.user_views.all %}
     <div>{{ user.username }}</div>
 {% endfor %}
+
+{% endblock %}

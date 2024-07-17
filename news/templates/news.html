@@ -1,8 +1,6 @@
-<a href="/">Главная</a> |
-<a href="/costumers/">Покупатели</a> |
-<a href="/news/">Новости</a> |
-<a href="/users/">Пользователи</a> |
-<a href="/admin">Админка</a>
+{% extends 'base.html' %}
+
+{% block content %}
 
 <h1>Новости</h1>
 {% for new in news %}
@@ -11,3 +9,4 @@
     </div>
 {% endfor %}
 
+{% endblock %}

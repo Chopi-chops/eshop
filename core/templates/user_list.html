@@ -1,8 +1,6 @@
-<a href="/">Главная</a> |
-<a href="/costumers/">Покупатели</a> |
-<a href="/news/">Новости</a> |
-<a href="/users/">Пользователи</a> |
-<a href="/admin">Админка</a>
+{% extends 'base.html' %}
+
+{% block content %}
 
 <h1>Пользователи</h1>
 {% for user in users %}
@@ -10,3 +8,5 @@
         <a href="/user/{{ user.id }}/">{{ user }}</a>
     </div>
 {% endfor %}
+
+{% endblock %}

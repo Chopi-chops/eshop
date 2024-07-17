@@ -16,7 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from core.views import homepage, product_detail, users_list, user_cabinet
+from django.conf import settings  # 1
+from django.conf.urls.static import static  # 2
+from core.views import *
 from costumerapp.views import costumer_view
 from news.views import news_view, new_detail
 
@@ -29,4 +31,4 @@ urlpatterns = [
     path('costumers/', costumer_view),
     path('news/', news_view),
     path('new/<int:id>/', new_detail, name='new-detail'),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)  # 3
