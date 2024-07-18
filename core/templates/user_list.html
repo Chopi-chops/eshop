@@ -3,10 +3,12 @@
 {% block content %}
 
 <h1>Пользователи</h1>
-{% for user in users %}
-    <div>{{ user.id }}.
-        <a href="/user/{{ user.id }}/">{{ user }}</a>
-    </div>
-{% endfor %}
+<div class="row user-list">
+    {% for user in users %}
+        <div class="p-5 bg-info rounded col-lg-3 col-md-5 col-sm-12">
+            <a class="text-dark" href="/user/{{ user.id }}/">{{ user }}</a>
+        </div>
+    {% endfor %}
+</div>
 
 {% endblock %}
