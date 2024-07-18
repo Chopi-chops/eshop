@@ -24,3 +24,11 @@ nav a {
     color: black;
     text-decoration: none;
 }
+
+.bg-primary {
+    background-color: rgb(6 62 144) !important;
+}
+
+.news-list {
+    gap: 5px;
+}
