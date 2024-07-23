@@ -1,11 +1,17 @@
 from django.shortcuts import render, redirect
 from .models import New
+from .filters import NewFilter
 from django.contrib.auth.models import User
 
 # Create your views here.
 def news_view(request):
     news_list = New.objects.all()
-    context = {"news": news_list}
+    filter_object = NewFilter(
+        data=request.GET,
+        queryset=news_list
+    )
+
+    context = {"filter_object": filter_object}
     return render(request, 'news.html', context)
 
 def new_detail(request, id):
