@@ -25,6 +25,7 @@ from news.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', homepage),
+    path('search/', search),
     path('product/<int:id>/', product_detail, name='product-detail'),
     path('product-create/', product_create, name='product-create'),
     path('user-create/', user_create, name='user-create'),

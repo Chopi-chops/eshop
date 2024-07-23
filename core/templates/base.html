@@ -21,6 +21,10 @@
         <a href="/users/">Пользователи</a>
         <a href="{% url 'user-create' %}">Добавить</a>
         <a href="/admin/">Админка</a>
+        <form action="/search/" method="GET">
+            <input type="text" name="keyword">
+            <button>Поиск</button>
+        </form>
     </nav>
 
     <div class="container-fluid p-5 bg-primary text-white text-center">

@@ -2,13 +2,21 @@ from django.shortcuts import render, HttpResponse
 from .models import Product
 from costumerapp.models import Costumer
 from .forms import *
+from .filters import ProductFilter
+
 
 # Create your views here.
 def homepage(request):
     product_list = Product.objects.all()
-    context = {"products": product_list}
-    # return HttpResponse('Hello Django!')
+    filter_object = ProductFilter(
+        data=request.GET,
+        queryset=product_list
+    )
+
+    context = {"filter_object": filter_object}
+
     return render(request, 'index.html', context)
+
 
 def product_detail(request, id):
     # SELECT * FROM Product WHERE id = $id; -- где id - число с url
@@ -46,6 +54,7 @@ def users_list(request):
     # return HttpResponse('Hello Django!')
     return render(request, 'user_list.html', context)
 
+
 def product_create(request):
     context = {}
     context["product_form"] = ProductForm()
@@ -58,6 +67,7 @@ def product_create(request):
             product_form.save()
             return HttpResponse("Успешно сохранено!")
         return HttpResponse("Ошибка валидации!")
+
 
 def user_create(request):
     context = {}
@@ -72,9 +82,16 @@ def user_create(request):
             return HttpResponse("Успешно сохранено!")
         return HttpResponse("Ошибка валидации!")
 
+
 def user_cabinet(request, id):
     user = User.objects.get(id=id)
     context = {"user": user}
     return render(request, 'cabinet.html', context)
 
 
+def search(request):
+    keyword = request.GET["keyword"]
+    # LIKE
+    products = Product.objects.filter(name__icontains=keyword)
+    context = {"products": products}
+    return render(request, 'search_result.html', context)

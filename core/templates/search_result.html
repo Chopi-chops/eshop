@@ -3,28 +3,8 @@
 
 {% block content %}
 
-{% if request.user.is_authenticated %}
-    <p class="cabinet-link">
-        <a href="/user/{{ request.user.id }}/">
-            {{ request.user }}
-        </a>
-    </p>
-    <p>
-        <a class="btn btn-info" href="/user/{{ request.user.id }}/">
-            {{ request.user }}
-        </a>
-    </p>
-{% endif %}
 
 <h1>Товары</h1>
-
-<p class="row">
-    <form class="col-lg-6" method="get">
-        {% bootstrap_form filter_object.form %}
-        <button class="btn btn-info">Применить</button>
-    </form>
-</p>
-
 <table class="table table-striped table-bordered table-hover">
     <thead>
         <tr class="table-info">
@@ -35,7 +15,7 @@
         </tr>
     </thead>
     <tbody>
-        {% for product in filter_object.qs %}
+        {% for product in products %}
             <tr>
                 <td>{{ product.name }}</td>
                 <td>{{ product.category }}</td>
