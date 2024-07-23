@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, redirect
 from .models import New
 from django.contrib.auth.models import User
 
@@ -25,3 +25,19 @@ def new_detail(request, id):
         "new": new_object,
     }
     return render(request, 'news_detail.html', context)
+
+def new_create(request):
+    if request.method == "GET":
+        return render(request, 'new_create.html')
+    elif request.method == "POST":
+        # 1. Считывание данные с формы
+        data = request.POST
+        title = data["new_title"]
+        text = data["new_article"]
+
+        # 2. Сохранение этих данных в БД
+        new_object = New.objects.create(
+            title=title,
+            article=text,
+        )
+        return redirect(f'/new/{new_object.id}/')

@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse
 from .models import Product
 from costumerapp.models import Costumer
-from django.contrib.auth.models import User
+from .forms import *
 
 # Create your views here.
 def homepage(request):
@@ -46,8 +46,35 @@ def users_list(request):
     # return HttpResponse('Hello Django!')
     return render(request, 'user_list.html', context)
 
+def product_create(request):
+    context = {}
+    context["product_form"] = ProductForm()
+
+    if request.method == "GET":
+        return render(request, 'product_create.html', context)
+    if request.method == "POST":
+        product_form = ProductForm(request.POST)
+        if product_form.is_valid():
+            product_form.save()
+            return HttpResponse("Успешно сохранено!")
+        return HttpResponse("Ошибка валидации!")
+
+def user_create(request):
+    context = {}
+    context["user_form"] = UserForm()
+
+    if request.method == "GET":
+        return render(request, 'user_create.html', context)
+    if request.method == "POST":
+        user_form = UserForm(request.POST)
+        if user_form.is_valid():
+            user_form.save()
+            return HttpResponse("Успешно сохранено!")
+        return HttpResponse("Ошибка валидации!")
+
 def user_cabinet(request, id):
     user = User.objects.get(id=id)
     context = {"user": user}
     return render(request, 'cabinet.html', context)
+
 

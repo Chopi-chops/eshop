@@ -10,7 +10,7 @@ class NewsCategory(models.Model):
 
 class New(models.Model):
     title = models.CharField(max_length=1000)
-    article = models.TextField(null=True, blank=True)
+    article = models.TextField()
     views = models.IntegerField(default=0)
     user_views = models.ManyToManyField(
         to=User,

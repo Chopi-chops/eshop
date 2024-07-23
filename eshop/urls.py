@@ -19,16 +19,20 @@ from django.urls import path
 from django.conf import settings  # 1
 from django.conf.urls.static import static  # 2
 from core.views import *
-from costumerapp.views import costumer_view
-from news.views import news_view, new_detail
+from costumerapp.views import *
+from news.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', homepage),
     path('product/<int:id>/', product_detail, name='product-detail'),
+    path('product-create/', product_create, name='product-create'),
+    path('user-create/', user_create, name='user-create'),
     path('users/', users_list),
     path('user/<int:id>/', user_cabinet, name='user-cabinet'),
     path('costumers/', costumer_view),
+    path('costumer-create/', costumer_create, name='costumer-create'),
     path('news/', news_view),
     path('new/<int:id>/', new_detail, name='new-detail'),
+    path('new-create/', new_create, name='new-create'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)  # 3
