@@ -29,6 +29,7 @@ urlpatterns = [
     path('product/<int:id>/', product_detail, name='product-detail'),
     path('product-create/', product_create, name='product-create'),
     path('user-create/', user_create, name='user-create'),
+    path('profile-create/', profile_create, name='profile-create'),
     path('users/', users_list),
     path('user/<int:id>/', user_cabinet, name='user-cabinet'),
     path('costumers/', costumer_view),
@@ -36,6 +37,7 @@ urlpatterns = [
     path('news/', news_view),
     path('new/<int:id>/', new_detail, name='new-detail'),
     path('new-create/', new_create, name='new-create'),
+    path('profile-update/<int:id>/', profile_update, name='profile-update'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)  # 3
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

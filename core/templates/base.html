@@ -43,13 +43,14 @@
                   <li><a class="dropdown-item" href="{% url 'product-create' %}">Добавить товар</a></li>
                   <li><a class="dropdown-item" href="{% url 'costumer-create' %}">Добавить клиента</a></li>
                   <li><a class="dropdown-item" href="{% url 'new-create' %}">Добавить новость</a></li>
-                  <li><a class="dropdown-item" href="{% url 'user-create' %}">Добавить профиль</a></li>
+                  <li><a class="dropdown-item" href="{% url 'user-create' %}">Добавить admin</a></li>
+                  <li><a class="dropdown-item" href="{% url 'profile-create' %}">Добавить профиль</a></li>
                 </ul>
               </li>
             </ul>
             <form class="d-flex" action="/search/">
                 <input class="form-control me-2" type="text" placeholder="По содержание" name="keyword">
-                <button class="btn btn-primary" type="button">Поиск</button>
+                <button class="btn btn-primary" type="submit">Поиск</button>
             </form>
           </div>
         </div>

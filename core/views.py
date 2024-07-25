@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse
 from django.db.models import Q
 
-from .models import Product
+from .models import *
 from costumerapp.models import Costumer
 from .forms import *
 from .filters import ProductFilter
@@ -85,6 +85,20 @@ def user_create(request):
         return HttpResponse("Ошибка валидации!")
 
 
+def profile_create(request):
+    context = {}
+    context["form"] = ProfileForm()
+
+    if request.method == "GET":
+        return render(request, 'profile/create.html', context)
+    if request.method == "POST":
+        form = ProfileForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponse("Успешно сохранено!")
+        return HttpResponse("Ошибка валидации!")
+
+
 def user_cabinet(request, id):
     user = User.objects.get(id=id)
     context = {"user": user}
@@ -96,7 +110,23 @@ def search(request):
     # WHERE name LIKE '%keyword%' OR description LIKE '%keyword%'
     products = Product.objects.filter(
         Q(name__icontains=keyword) |
-        Q(description__icontains=keyword)
+        Q(description__icontains=keyword) |
+        Q(category__name__icontains=keyword)
     )
     context = {"products": products}
     return render(request, 'search_result.html', context)
+
+
+def profile_update(request, id):
+    context = {}
+    profile_object = Profile.objects.get(id=id)
+    context["form"] = ProfileForm(instance=profile_object)
+
+    if request.method == "GET":
+        return render(request, "profile/update.html", context)
+    if request.method == "POST":
+        form = ProfileForm(request.POST, request.FILES, instance=profile_object)
+        if form.is_valid():
+            form.save()
+            return HttpResponse("Успешно обновлено!")
+        return HttpResponse("Ошибка валидации!")

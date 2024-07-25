@@ -31,6 +31,11 @@ class Product(models.Model):
         blank=True
     )
     views_qty = models.IntegerField(default=0)
+    photo = models.ImageField(
+        verbose_name="фото",
+        upload_to="products/",
+        null=True, blank=True
+    )
 
     def __str__(self):
         return self.name
