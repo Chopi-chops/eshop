@@ -37,3 +37,5 @@ urlpatterns = [
     path('new/<int:id>/', new_detail, name='new-detail'),
     path('new-create/', new_create, name='new-create'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)  # 3
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

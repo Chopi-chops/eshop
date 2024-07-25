@@ -45,3 +45,8 @@ class Profile(models.Model):
         on_delete=models.SET_NULL,
         null=True, blank=True
     )
+    photo = models.ImageField(
+        verbose_name="фото",
+        upload_to="profiles/",
+        null=True, blank=True
+    )
