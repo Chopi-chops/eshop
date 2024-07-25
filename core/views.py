@@ -64,7 +64,7 @@ def product_create(request):
     if request.method == "GET":
         return render(request, 'product_create.html', context)
     if request.method == "POST":
-        product_form = ProductForm(request.POST)
+        product_form = ProductForm(request.POST, request.FILES)
         if product_form.is_valid():
             product_form.save()
             return HttpResponse("Успешно сохранено!")
@@ -92,7 +92,7 @@ def profile_create(request):
     if request.method == "GET":
         return render(request, 'profile/create.html', context)
     if request.method == "POST":
-        form = ProfileForm(request.POST)
+        form = ProfileForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return HttpResponse("Успешно сохранено!")
@@ -126,6 +126,21 @@ def profile_update(request, id):
         return render(request, "profile/update.html", context)
     if request.method == "POST":
         form = ProfileForm(request.POST, request.FILES, instance=profile_object)
+        if form.is_valid():
+            form.save()
+            return HttpResponse("Успешно обновлено!")
+        return HttpResponse("Ошибка валидации!")
+
+
+def product_update(request, id):
+    context = {}
+    product_object = Product.objects.get(id=id)
+    context["form"] = ProductForm(instance=product_object)
+
+    if request.method == "GET":
+        return render(request, "product/update.html", context)
+    if request.method == "POST":
+        form = ProductForm(request.POST, request.FILES, instance=product_object)
         if form.is_valid():
             form.save()
             return HttpResponse("Успешно обновлено!")

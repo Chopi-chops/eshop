@@ -28,6 +28,7 @@ urlpatterns = [
     path('search/', search),
     path('product/<int:id>/', product_detail, name='product-detail'),
     path('product-create/', product_create, name='product-create'),
+    path('product-update/<int:id>/', product_update, name='product-update'),
     path('user-create/', user_create, name='user-create'),
     path('profile-create/', profile_create, name='profile-create'),
     path('users/', users_list),

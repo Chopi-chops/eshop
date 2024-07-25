@@ -32,6 +32,8 @@
             <th>Категория</th>
             <th>Кол-во</th>
             <th>Цена</th>
+            <th>Фото</th>
+            <th>Изменение продукта</th>
         </tr>
     </thead>
     <tbody>
@@ -41,6 +43,8 @@
                 <td>{{ product.category }}</td>
                 <td>{{ product.qty }}</td>
                 <td>{{ product.price }}</td>
+                <td><img src="/media/{{ product.photo }}" alt="" height="150px"></td>
+                <td><a class="btn btn-warning" href="{% url 'product-update' product.id %}">Изменить</a></td>
             </tr>
         {% endfor %}
     </tbody>

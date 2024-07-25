@@ -29,7 +29,8 @@ class ProductForm(forms.ModelForm):
             'qty',
             'category',
             'guarantee',
-            'expiration_date'
+            'expiration_date',
+            'photo'
         ]
 
 
