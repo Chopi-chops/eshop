@@ -1,11 +1,12 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from django.db.models import Q
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 
 from .models import *
 from costumerapp.models import Costumer
 from .forms import *
 from .filters import ProductFilter
-
 
 # Create your views here.
 def homepage(request):
@@ -71,18 +72,23 @@ def product_create(request):
         return HttpResponse("Ошибка валидации!")
 
 
-def user_create(request):
+def registration(request):
     context = {}
-    context["user_form"] = UserForm()
 
-    if request.method == "GET":
-        return render(request, 'user_create.html', context)
     if request.method == "POST":
-        user_form = UserForm(request.POST)
-        if user_form.is_valid():
-            user_form.save()
-            return HttpResponse("Успешно сохранено!")
-        return HttpResponse("Ошибка валидации!")
+        # create user object
+        reg_form = RegistrationForm(request.POST)
+        if reg_form.is_valid():
+            user_object = reg_form.save()
+            password = request.POST["password"]
+            user_object.set_password(password)
+            user_object.save()
+            return redirect('/')
+        return HttpResponse("Ошибка валидации")
+
+    reg_form = RegistrationForm()
+    context["reg_form"] = reg_form
+    return render(request, 'profile/registration.html', context)
 
 
 def profile_create(request):
@@ -145,3 +151,34 @@ def product_update(request, id):
             form.save()
             return HttpResponse("Успешно обновлено!")
         return HttpResponse("Ошибка валидации!")
+
+
+def signin(request):
+    context = {}
+
+    if request.method == "POST":
+        form = AuthForm(request.POST)
+        if form.is_valid():
+            username = request.POST["username"]
+            password = request.POST["password"]
+            user = authenticate(
+                request,
+                username=username,
+                password=password
+            )
+            if user is not None:
+                login(request, user)
+                messages.success(request, "Вы успешно авторизовались!")
+                return redirect('/')
+            messages.warning(request, "Логин и/или пароль неверны")
+        else:
+            messages.warning(request, "Данные не валидны")
+
+    form = AuthForm()
+    context["form"] = form
+    return render(request, 'profile/signin.html', context)
+
+
+def signout(request):
+    logout(request)
+    return redirect('/')

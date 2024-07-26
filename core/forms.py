@@ -34,12 +34,14 @@ class ProductForm(forms.ModelForm):
         ]
 
 
-class UserForm(forms.ModelForm):
+class RegistrationForm(forms.ModelForm):
     class Meta:
         model = User
         fields = [
             'username',
             'password',
+            'first_name',
+            'last_name'
         ]
 
 
@@ -48,3 +50,7 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = '__all__'
 
+
+class AuthForm(forms.Form):
+    username = forms.CharField(max_length=150)
+    password = forms.CharField(widget=forms.PasswordInput)
