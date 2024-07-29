@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth.models import User
 from .models import New
 from .filters import NewFilter
-from django.contrib.auth.models import User
 
 # Create your views here.
 def news_view(request):
@@ -46,4 +47,5 @@ def new_create(request):
             title=title,
             article=text,
         )
+        messages.success(request, "Новость добавлена!")
         return redirect(f'/new/{new_object.id}/')

@@ -68,8 +68,10 @@ def product_create(request):
         product_form = ProductForm(request.POST, request.FILES)
         if product_form.is_valid():
             product_form.save()
-            return HttpResponse("Успешно сохранено!")
-        return HttpResponse("Ошибка валидации!")
+            messages.success(request, "Товар добавлен!")
+            return redirect('/')
+        messages.warning(request, "Ошибка валидации!")
+        return redirect('/')
 
 
 def registration(request):
@@ -134,8 +136,10 @@ def profile_update(request, id):
         form = ProfileForm(request.POST, request.FILES, instance=profile_object)
         if form.is_valid():
             form.save()
-            return HttpResponse("Успешно обновлено!")
-        return HttpResponse("Ошибка валидации!")
+            messages.success(request, "Успешно обновлено!")
+            return redirect('/users/')
+        messages.warning(request, "Ошибка валидации!")
+        return redirect('/users/')
 
 
 def product_update(request, id):
@@ -149,8 +153,10 @@ def product_update(request, id):
         form = ProductForm(request.POST, request.FILES, instance=product_object)
         if form.is_valid():
             form.save()
-            return HttpResponse("Успешно обновлено!")
-        return HttpResponse("Ошибка валидации!")
+            messages.success(request, "Успешно обновлено!")
+            return redirect('/')
+        messages.warning(request, "Ошибка валидации!")
+        return redirect('/')
 
 
 def signin(request):

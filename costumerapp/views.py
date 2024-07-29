@@ -1,4 +1,5 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, redirect, HttpResponse
+from django.contrib import messages
 from .models import Costumer
 from .forms import CostumerForm
 
@@ -18,5 +19,7 @@ def costumer_create(request):
         costumer_form = CostumerForm(request.POST)
         if costumer_form.is_valid():
             costumer_form.save()
-            return HttpResponse("Успешно сохранено!")
-        return HttpResponse("Ошибка валидации!")
+            messages.success(request, "Клиент добавлен!")
+            return redirect('/costumers/')
+        messages.warning(request, "Ошибка валидации!")
+        return redirect('/costumers/')
