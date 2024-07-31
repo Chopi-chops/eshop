@@ -42,7 +42,7 @@ urlpatterns = [
     path('user/<int:pk>/', UserCabinet.as_view(), name='user-cabinet'),
     path('costumers/', costumer_view),
     path('costumer-create/', costumer_create, name='costumer-create'),
-    path('news/', news_view),
+    path('news/', news_view, name='news-list'),
     # path('new/<int:id>/', new_detail, name='new-detail'),
     path('new/<int:pk>/', NewDetailView.as_view(), name='new-detail'),
     # path('new-create/', new_create, name='new-create'),

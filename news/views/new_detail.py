@@ -1,15 +1,18 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.db.models import Q
-from django.views.generic import DetailView
 from django.views import View
+from django.contrib import messages
 from news.models import New
 
 
 
 class NewDetailView(View):
     def get(self, request, pk):
-        new_object = New.objects.get(pk=pk)
+        try:
+            new_object = New.objects.get(pk=pk)
+        except New.DoesNotExist:
+            messages.error(request, "Новость не найдена")
+            return redirect('/')
         new_object.views += 1
         if request.user.is_authenticated:
             new_object.user_views.add(request.user)

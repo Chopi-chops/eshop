@@ -1,7 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
-from django.db.models import Q
+from django.contrib import messages
 from django.views import View
-
 from core.models import *
 from costumerapp.models import Costumer
 from core.forms import *
@@ -9,7 +8,11 @@ from core.forms import *
 
 class ProductDetailView(View):
     def get(self, request, pk):
-        product_object = Product.objects.get(pk=pk)
+        try:
+            product_object = Product.objects.get(pk=pk)
+        except Product.DoesNotExist:
+            messages.error(request, "Товар не найден")
+            return redirect('/news/')
         product_object.views_qty += 1
         if request.user.is_authenticated:
             user = request.user

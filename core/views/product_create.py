@@ -1,8 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
-from django.db.models import Q
 from django.contrib import messages
 from django.views import View
-
 from core.models import *
 from core.forms import *
 
