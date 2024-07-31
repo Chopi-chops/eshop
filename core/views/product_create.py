@@ -31,6 +31,8 @@ class ProductCreateView(View):
         product_form = ProductForm(request.POST)
         if product_form.is_valid():
             product_form.save()
-            return HttpResponse("Успешно сохранено!")
-        return HttpResponse("Ошибка валидации!")
+            messages.success(request, "Успешно добавлено!")
+            return redirect('/')
+        messages.warning(request, "Ошибка валидации!")
+        return redirect('/')
 

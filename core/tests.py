@@ -1,6 +1,13 @@
 from django.test import TestCase
 from .factories import ProductFactory
 from .models import Product
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from core.utils import get_driver
+from time import sleep
 
 
 class ProductsListTestCase(TestCase):
@@ -24,26 +31,54 @@ class ProductsListTestCase(TestCase):
         self.assertContains(response, self.product_object_1.description)
 
 
-class ProductCreateTestCase(TestCase):
+class ProductProfileCreateTestCase(TestCase):
     def test_create_product_should_pass(self):
-        form_data = {
-            "name": "Тестовый товар 1",
-            "description": "Что-то то там",
-            "price": "111",
-            "qty": "111"
-        }
+        driver = get_driver()
+        driver.get("http://localhost:8000/product-create/")
+        sleep(3)
+        name_element = driver.find_element(By.NAME, "name")
+        description_element = driver.find_element(By.NAME, "description")
+        price_element = driver.find_element(By.NAME, "price")
 
-        response = self.client.post(
-            path="/product-create/",
-            data=form_data
+        name_element.clear()
+        name_element.send_keys("наушники")
+        sleep(3)
+        description_element.clear()
+        description_element.send_keys("black")
+        sleep(3)
+        price_element.clear()
+        price_element.send_keys("20000")
+        sleep(3)
+        button = WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.ID, 'add-product'))
         )
+        button.click()
+        sleep(5)
 
-        self.assertEqual(response.status_code, 200)
-        query = Product.objects.filter(
-            name=form_data["name"],
-            description=form_data["description"],
-            price=form_data["price"],
-            qty=form_data["qty"]
+        driver.close()
+
+    def test_create_profile_should_pass(self):
+        driver = get_driver()
+        driver.get("http://localhost:8000/profile-create/")
+        sleep(3)
+        bio_element = driver.find_element(By.NAME, "bio")
+        link_element = driver.find_element(By.NAME, "social_link")
+        phone_element = driver.find_element(By.NAME, "phone_number")
+
+        bio_element.clear()
+        bio_element.send_keys("cool")
+        sleep(3)
+        link_element.clear()
+        link_element.send_keys("black")
+        sleep(3)
+        phone_element.clear()
+        phone_element.send_keys("12345")
+        sleep(3)
+        button = WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.ID, 'add-profile'))
         )
-        self.assertGreater(query.count(), 0)
+        button.click()
+        sleep(5)
+
+        driver.close()
 

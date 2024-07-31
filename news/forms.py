@@ -8,5 +8,4 @@ class NewForm(forms.ModelForm):
         fields = [
             'title',
             'article',
-            'category',
         ]

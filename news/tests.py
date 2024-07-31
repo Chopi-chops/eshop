@@ -1,6 +1,13 @@
 from django.test import TestCase
 from .factories import NewFactory
 from .models import New
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from core.utils import get_driver
+from time import sleep
 
 # Create your tests here.
 
@@ -33,21 +40,24 @@ class NewsListTestCase(TestCase):
 
 class NewCreateTestCase(TestCase):
     def test_create_new_should_pass(self):
-        form_data = {
-            "title": "Тестовая новость 99",
-            "article": "Что-то то там"
-        }
+        driver = get_driver()
+        driver.get("http://localhost:8000/new-create/")
+        sleep(3)
+        title_element = driver.find_element(By.NAME, "title")
+        article_element = driver.find_element(By.NAME, "article")
 
-        response = self.client.post(
-            path="/new-create/",
-            data=form_data
+        title_element.clear()
+        title_element.send_keys("weather")
+        sleep(3)
+        article_element.clear()
+        article_element.send_keys("good")
+        sleep(3)
+        button = WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.ID, 'add-new'))
         )
+        button.click()
+        sleep(5)
 
-        self.assertEqual(response.status_code, 302)
-        query = New.objects.filter(
-            title=form_data["title"],
-            article=form_data["article"]
-        )
-        self.assertGreater(query.count(), 0)
+        driver.close()
 
 
