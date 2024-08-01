@@ -6,6 +6,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
 from core.utils import get_driver
 from time import sleep
 
@@ -73,6 +74,9 @@ class ProductProfileCreateTestCase(TestCase):
         sleep(3)
         phone_element.clear()
         phone_element.send_keys("12345")
+        sleep(1)
+        button = driver.find_element(By.ID, 'add-product')
+        ActionChains(driver).scroll_to_element(button).perform()
         sleep(3)
         button = WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.ID, 'add-profile'))
