@@ -8,6 +8,9 @@ from core.forms import *
 def profile_update(request, id):
     context = {}
     profile_object = Profile.objects.get(id=id)
+    if request.user != profile_object.user:
+        messages.error(request, "Нет доступа")
+        return redirect('/')
     context["form"] = ProfileForm(instance=profile_object)
 
     if request.method == "GET":

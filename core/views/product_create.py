@@ -3,6 +3,8 @@ from django.contrib import messages
 from django.views import View
 from core.models import *
 from core.forms import *
+from django.contrib.auth.mixins import LoginRequiredMixin
+from core.mixins import StaffOnlyMixin
 
 
 def product_create(request):
@@ -21,7 +23,7 @@ def product_create(request):
         return redirect('/')
 
 
-class ProductCreateView(View):
+class ProductCreateView(StaffOnlyMixin, View):
     def get(self, request):
         context = {}
         context["product_form"] = ProductForm()

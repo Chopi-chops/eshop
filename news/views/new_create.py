@@ -9,6 +9,9 @@ from news.forms import *
 
 
 def new_create(request):
+    if not request.user.is_staff:
+        messages.error(request, "not found")
+        return redirect('/')
     if request.method == "GET":
         return render(request, 'new_create.html')
     elif request.method == "POST":
